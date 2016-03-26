@@ -2,7 +2,7 @@ require 'optparse'
 
 def runner(file,device,extension,throttle,dir)
 	device="Apple iPhone 6" if device==nil	#default case
-	command="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar \"./bin/mobileEmulatorCrawler.jar\" -file \"#{file}\""
+	command="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar \"./bin/MECrawler.jar\" -file \"#{file}\""
 	command+=" -device \"#{device}\"" if device!=nil
 	command+=" -throttle \"#{throttle}\"" if throttle!=nil
 	command+=" -extension \"#{extension}\"" if extension!=nil
