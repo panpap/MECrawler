@@ -1,3 +1,7 @@
+if [ $# -eq 0 ]; then
+    echo "No list for crontab is provided"
+    exit 1
+fi
 echo "Installing needed resources..."
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt-get update
