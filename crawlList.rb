@@ -40,8 +40,8 @@ OptionParser.new { |opts|
   	end
 }.parse!
 abort "ERROR: No URL list was given!" if options[:file]==nil
-#system("Xvfb :1 -screen 5 1024x768x8 &")
-#system("export DISPLAY=:1.5")
+puts("export DISPLAY=:1.5")
+system("export DISPLAY=:1.5")
 runner(options[:file],options[:device],options[:extensions],options[:throttle],options[:dir],options[:rerun])
 finish = Time.now
 puts "Total Elapsed time "+(finish - start).to_s+" seconds"
