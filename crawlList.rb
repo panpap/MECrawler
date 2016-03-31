@@ -1,7 +1,7 @@
 require 'optparse'
 
 def runner(file,device,extension,throttle,dir,rerun)
-	device="Apple iPhone 6" if device==nil#default case
+	device="Apple iPhone 6" if device==nil #default case
 	rerun=1 if rerun==nil	#default case
 	command="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar \"./bin/MECrawler.jar\" -file \"#{file}\""
 	command+=" -r \"#{rerun}\"" if device!=nil
@@ -34,9 +34,9 @@ OptionParser.new { |opts|
     	options[:rerun] = v
 	end
 	opts.on("-e", "--extension EXTENSION", "Extension to load") do |v|
-		availableExtensions.each{|ext| 
-			ext=dir+ext if options[:dir]!=nil
-			(options[:extensions]=ext; break) if ext.include? v}
+	#	availableExtensions.each{|ext| 
+	#		ext=dir+ext if options[:dir]!=nil
+			(options[:extensions]=v)#ext; break) if ext.include? v}
   	end
 }.parse!
 abort "ERROR: No URL list was given!" if options[:file]==nil
