@@ -1,15 +1,15 @@
 require 'optparse'
 
 def runner(file,device,extension,throttle,dir,rerun)
-	device="Apple iPhone 6" if device==nil	#default case
-	rerun=1 if device==nil	#default case
+	device="Apple iPhone 6" if device==nil#default case
+	rerun=1 if rerun==nil	#default case
 	command="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar \"./bin/MECrawler.jar\" -file \"#{file}\""
 	command+=" -r \"#{rerun}\"" if device!=nil
 	command+=" -device \"#{device}\"" if device!=nil
 	command+=" -throttle \"#{throttle}\"" if throttle!=nil
 	command+=" -extension \"#{extension}\"" if extension!=nil
 	command+=" -dir \"#{dir}\"" if not dir==nil
-	#puts command
+	puts command
 	system(command)
 end
 
