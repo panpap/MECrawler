@@ -46,3 +46,4 @@ runner(options[:file],options[:device],options[:extensions],options[:throttle],o
 finish = Time.now
 puts "Total Elapsed time "+(finish - start).to_s+" seconds"
 system("killall java") #make sure it is closed
+system("killall chrome") #make sure it is closed
