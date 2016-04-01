@@ -40,9 +40,9 @@ OptionParser.new { |opts|
   	end
 }.parse!
 abort "ERROR: No URL list was given!" if options[:file]==nil
-puts("export DISPLAY=:1.5")
-system("export DISPLAY=:1.5")
-runner(options[:file],options[:device],options[:extensions],options[:throttle],options[:dir],options[:rerun])
+#puts("export DISPLAY=:1.5")
+puts ENV["DISPLAY"]
+#runner(options[:file],options[:device],options[:extensions],options[:throttle],options[:dir],options[:rerun])
 finish = Time.now
 puts "Total Elapsed time "+(finish - start).to_s+" seconds"
-system("killall java") #make sure it is closed
+#system("killall java") #make sure it is closed
