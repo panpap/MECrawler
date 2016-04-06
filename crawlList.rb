@@ -1,14 +1,16 @@
 require 'optparse'
 
-def runner(file,device,extension,throttle,dir,rerun)
+def runner(file,device,extension,throttle,dir,rerun,caching)
+	caching="false" if caching==nil
 	device="Apple iPhone 6" if device==nil #default case
 	rerun=1 if rerun==nil	#default case
-	command="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar \"./bin/MECrawler.jar\" -file \"#{file}\""
+	command="java -Xmx256M -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar \"./bin/MECrawler.jar\" -file \"#{file}\"" #
 	command+=" -r \"#{rerun}\"" if device!=nil
 	command+=" -device \"#{device}\"" if device!=nil
 	command+=" -throttle \"#{throttle}\"" if throttle!=nil
 	command+=" -extension \"#{extension}\"" if extension!=nil
-	command+=" -dir \"#{dir}\"" if not dir==nil
+	command+=" -dir \"#{dir}\"" if dir!=nil
+	command+=" -c \"false\"" if caching!=nil
 	puts command
 	system(command)
 end
@@ -33,6 +35,9 @@ OptionParser.new { |opts|
 	opts.on("-r", "--rerun REPLAYS", "Number of back-to-back reruns") do |v|
     	options[:rerun] = v
 	end
+	opts.on("-c", "--caching CACHING", "Use caching and cookies") do |v|
+    	options[:caching] = v
+	end
 	opts.on("-e", "--extension EXTENSION", "Extension to load") do |v|
 	#	availableExtensions.each{|ext| 
 	#		ext=dir+ext if options[:dir]!=nil
@@ -42,8 +47,8 @@ OptionParser.new { |opts|
 abort "ERROR: No URL list was given!" if options[:file]==nil
 system("Xvfb :1 -screen 5 1024x768x8 &")
 puts ENV["DISPLAY"]
-runner(options[:file],options[:device],options[:extensions],options[:throttle],options[:dir],options[:rerun])
+runner(options[:file],options[:device],options[:extensions],options[:throttle],options[:dir],options[:rerun],options[:caching])
 finish = Time.now
 puts "Total Elapsed time "+(finish - start).to_s+" seconds"
-system("killall java") #make sure it is closed
+#system("killall java") #make sure it is closed
 system("killall chrome") #make sure it is closed
